@@ -223,6 +223,7 @@ var dropZoneDragHandler = function(event) {
   var taskListEl = event.target.closest(".task-list");
   if (taskListEl) {
     event.preventDefault();
+    taskListEl.setAttribute("style", "background: rgba(68, 233, 255, 0.7); border-style: dashed;");
   }
 }
 
@@ -245,10 +246,20 @@ else if (statusType === "tasks-completed") {
   statusSelectEl.selectedIndex = 2;
 
 }
+//clears hover styling 
+dropZoneEl.removeAttribute("style");
+
 dropZoneEl.appendChild(draggableElement);
 }
 
 
+//function to highlight dropped task
+var dragLeaveHandler = function(event) {
+  var taskListEl = event.target.closest(".task-list");
+  if (taskListEl) {
+    taskListEl.removeAttribute("style");
+  }
+}
 
 
 //event listener calls
@@ -263,3 +274,5 @@ pageContentEl.addEventListener("dragstart", dragTaskHandler);
 pageContentEl.addEventListener("dragover", dropZoneDragHandler);
 
 pageContentEl.addEventListener("drop", dropTaskHandler);
+
+pageContentEl.addEventListener("dragleave", dragLeaveHandler);
